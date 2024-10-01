@@ -1,0 +1,30 @@
+<div class="task-filter">
+  <label for="filter">Filtrar tareas:</label>
+  <select [(ngModel)]="filter" id="filter">
+    <option value="all">Todas</option>
+    <option value="completed">Completadas</option>
+    <option value="pending">Pendientes</option>
+  </select>
+</div>
+
+<ul class="task-list">
+  <li *ngFor="let task of filterTasks()" class="task-item">
+    <div class="task-header">
+      <span>{{ task.title }}</span>
+
+      <span [ngClass]="{'task-completed': task.completed, 'task-pending': !task.completed}">
+        {{ task.completed ? 'Completada' : 'Pendiente' }}
+      </span>
+
+      <input type="checkbox" [checked]="task.completed" (change)="toggleTaskCompletion(task)" />
+    </div>
+
+    <ul class="person-list">
+      <li *ngFor="let person of task.people" class="person-item">
+        <span>{{ person.fullName }} - {{ person.age }} años</span>
+        <br />
+        <span class="person-skills">Habilidades: {{ person.skills.join(', ') }}</span>
+      </li>
+    </ul>
+  </li>
+</ul>
